@@ -66,7 +66,7 @@ module Pio
       end
 
       def server_identifier
-        IPv4Address.new(
+        Net::IPv4Addr.new(
           @options[:server_identifier] || source_ip_address
         )
       end

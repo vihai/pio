@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'bindata'
-require 'pio/ipv4_address'
+require 'ynetaddr'
 
 module Pio
   module Type
@@ -10,11 +10,11 @@ module Pio
       array :octets, type: :uint8, initial_length: 4
 
       def set(value)
-        self.octets = IPv4Address.new(value).to_a
+        self.octets = Net::IPv4Addr.new(value).to_binary
       end
 
       def get
-        IPv4Address.new(octets.map { |each| format('%d', each) }.join('.'))
+        Net::IPv4Addr.new(octets.map { |each| format('%d', each) }.join('.'))
       end
 
       def >>(other)

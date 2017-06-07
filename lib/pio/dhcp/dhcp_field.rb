@@ -42,7 +42,7 @@ module Pio
                value: MAGIC_COOKIE
       array :optional_tlvs,
             type: :optional_tlv,
-            read_until: -> { element.end_of_dhcptlv? }
+            read_until: lambda { element.end_of_dhcptlv? }
     end
   end
 end

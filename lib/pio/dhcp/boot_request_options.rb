@@ -62,7 +62,7 @@ module Pio
 
       def server_identifier
         server_id = @options[:server_identifier]
-        IPv4Address.new(server_id) if server_id
+        Net::IPv4Addr.new(server_id) if server_id
       end
     end
   end

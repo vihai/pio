@@ -133,12 +133,12 @@ describe Pio::Dhcp::Offer, '.new' do
         0x00, 0x00
       ]
 
-    context 'with Pio::MAC Address and Pio::IPv4Address Address' do
-      let(:source_mac) { Pio::Mac.new('aa:bb:cc:dd:ee:ff') }
-      let(:destination_mac) { Pio::Mac.new('11:22:33:44:55:66') }
-      let(:source_ip_address) { Pio::IPv4Address.new('192.168.0.10') }
-      let(:destination_ip_address) { Pio::IPv4Address.new('192.168.0.1') }
-      let(:subnet_mask) { Pio::IPv4Address.new('255.255.255.0') }
+    context 'with Pio::MAC Address and Net::IPv4Addr Address' do
+      let(:source_mac) { Net::MacAddr.new('aa:bb:cc:dd:ee:ff') }
+      let(:destination_mac) { Net::MacAddr.new('11:22:33:44:55:66') }
+      let(:source_ip_address) { Net::IPv4Addr.new('192.168.0.10') }
+      let(:destination_ip_address) { Net::IPv4Addr.new('192.168.0.1') }
+      let(:subnet_mask) { Net::IPv4Addr.new('255.255.255.0') }
 
       context '#to_binary' do
         it 'returns a DHCP ack binary string' do

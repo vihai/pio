@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 require 'bindata'
-require 'pio/mac'
-require 'pio/monkey_patch/integer'
-require 'pio/monkey_patch/uint'
+#require 'pio/mac'
+#require 'pio/monkey_patch/integer'
+#require 'pio/monkey_patch/uint'
+require 'ynetaddr'
 
 module Pio
   module Type
@@ -12,11 +13,11 @@ module Pio
       array :octets, type: :uint8, initial_length: 6
 
       def set(value)
-        self.octets = Mac.new(value).to_a
+        self.octets = Net::MacAddr.new(value).to_a
       end
 
       def get
-        Mac.new(octets.reduce('') do |str, each|
+        Net::MacAddr.new(octets.reduce('') do |str, each|
                   str + format('%02x', each)
                 end.hex)
       end

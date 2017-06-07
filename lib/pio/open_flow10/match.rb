@@ -89,13 +89,13 @@ module Pio
         array :octets, type: :uint8, initial_length: 4
 
         def set(value)
-          self.octets = IPv4Address.new(value).to_a
+          self.octets = Net::IPv4IfAddr.new(value).to_a
         end
 
         def get
           ipaddr = octets.map { |each| format('%d', each) }.join('.')
           prefixlen = 32 - eval_parameter(:bitcount)
-          IPv4Address.new(ipaddr + "/#{prefixlen}")
+          Net::IPv4IfAddr.new(addr: ipaddr, length: prefixlen)
         end
 
         def ==(other)
@@ -141,7 +141,7 @@ module Pio
         end
         Wildcards::NW_FLAGS.each_with_object(flags) do |each, memo|
           if user_options.key?(each)
-            memo[each] = 32 - IPv4Address.new(user_options[each]).prefixlen
+            memo[each] = 32 - Net::IPv4IfAddr.new(user_options[each]).prefixlen
           else
             memo["#{each}_all".to_sym] = true
           end

@@ -142,10 +142,10 @@ describe Pio::Dhcp::Request, '.new' do
       end
     end
 
-    context 'with IPv4Address Object Address And Mac Object Address' do
-      let(:source_mac) { Pio::Mac.new('24:db:ac:41:e5:5b') }
-      let(:server_identifier) { Pio::IPv4Address.new('192.168.0.1') }
-      let(:requested_ip_address) { Pio::IPv4Address.new('192.168.0.10') }
+    context 'with Net::IPv4IfAddr Object Address And Mac Object Address' do
+      let(:source_mac) { Net::MacAddr.new('24:db:ac:41:e5:5b') }
+      let(:server_identifier) { Net::IPv4IfAddr.new('192.168.0.1') }
+      let(:requested_ip_address) { Net::IPv4IfAddr.new('192.168.0.10') }
 
       context '#to_binary' do
         it 'returns a DHCP Request binary string' do
