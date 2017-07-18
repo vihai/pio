@@ -8,7 +8,7 @@ module Pio
     class SystemNameValue < BinData::Record
       endian :big
 
-      stringz :system_name
+      string :system_name
     end
   end
 end

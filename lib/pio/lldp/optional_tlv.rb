@@ -15,11 +15,11 @@ module Pio
       endian :big
 
       bit7 :tlv_type
-      bit9 :tlv_info_length
+      bit9 :tlv_info_length, value: -> { tlv_value.num_bytes }
       choice :tlv_value,
+             selection: :tlv_type,
              read_length: :tlv_info_length,
-             onlyif: -> { !end_of_lldpdu? },
-             selection: :chooser do
+             onlyif: -> { !end_of_lldpdu? } do
         end_of_lldpdu_value 0
         port_description_value 4
         system_name_value 5
@@ -27,7 +27,7 @@ module Pio
         system_capabilities_value 7
         management_address_value 8
         organizationally_specific_value 127
-        string 'unknown'
+        string :default
       end
 
       def end_of_lldpdu?

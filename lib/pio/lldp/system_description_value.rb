@@ -8,7 +8,7 @@ module Pio
     class SystemDescriptionValue < BinData::Record
       endian :big
 
-      stringz :system_description
+      string :system_description
     end
   end
 end

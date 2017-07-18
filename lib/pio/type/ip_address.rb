@@ -5,16 +5,17 @@ require 'ynetaddr'
 
 module Pio
   module Type
+
     # IP address
     class IpAddress < BinData::Primitive
-      array :octets, type: :uint8, initial_length: 4
+      string :octets, read_length: 4
 
       def set(value)
-        self.octets = Net::IPv4Addr.new(value).to_binary
+        self.octets = Net::IPv4Addr.new(value || '0.0.0.0').to_binary
       end
 
       def get
-        Net::IPv4Addr.new(octets.map { |each| format('%d', each) }.join('.'))
+        octets ? Net::IPv4Addr.new(binary: octets) : nil
       end
 
       def >>(other)
@@ -30,7 +31,7 @@ module Pio
       end
 
       def to_bytes
-        octets.map(&:to_hex).join(', ')
+        octets
       end
 
       def inspect

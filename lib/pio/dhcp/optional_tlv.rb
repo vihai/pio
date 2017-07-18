@@ -15,7 +15,8 @@ module Pio
 
       bit8 :tlv_type
       bit8 :tlv_info_length,
-           onlyif: -> { !end_of_dhcpdu? }
+           onlyif: -> { !end_of_dhcpdu? },
+           value: -> { tlv_value.num_bytes }
       choice :tlv_value,
              onlyif: -> { !end_of_dhcpdu? },
              selection: :chooser do
